@@ -1,8 +1,8 @@
 class Instead < Formula
   desc "Interpreter of simple text adventures"
   homepage "https://instead.hugeping.ru/"
-  url "https://github.com/instead-hub/instead/releases/download/3.5.2/instead_3.5.2.tar.gz"
-  sha256 "77906fcd9099dcfe422e9b6e0ae2782b17c4a780836ed98864321b183732577a"
+  url "https://github.com/instead-hub/instead/releases/download/3.6.0/instead_3.6.0.tar.gz"
+  sha256 "ecc15268824d4cbd1d56ba4e44491069accaebaa642a6d275169878492ede80b"
   license "MIT"
 
   bottle do
@@ -20,10 +20,10 @@ class Instead < Formula
   depends_on "glib"
   depends_on "gtk+3"
   depends_on "luajit"
-  depends_on "sdl2-compat"
-  depends_on "sdl2_image"
-  depends_on "sdl2_mixer"
-  depends_on "sdl2_ttf"
+  depends_on "sdl3"
+  depends_on "sdl3_image"
+  depends_on "sdl3_mixer"
+  depends_on "sdl3_ttf"
 
   on_macos do
     depends_on "at-spi2-core"
@@ -41,7 +41,6 @@ class Instead < Formula
 
   def install
     system "cmake", "-S", ".", "-B", "build",
-                    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
                     "-DWITH_GTK2=OFF",
                     "-DWITH_LUAJIT=ON",
                     *std_cmake_args
@@ -50,6 +49,6 @@ class Instead < Formula
   end
 
   test do
-    assert_match "INSTEAD #{version} ", shell_output("#{bin}/instead -h 2>&1")
+    assert_match version.to_s, shell_output("#{bin}/instead -h 2>&1")
   end
 end
